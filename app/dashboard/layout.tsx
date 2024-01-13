@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation"
 import { auth } from "../libs/auth/auth"
-import { Button, Flex } from "@radix-ui/themes"
-import Link from "next/link"
 import { ReactNode } from "react"
-
+import { css } from "@/styled-system/css"
+import { Sidebar } from "./components/Sidebar"
+import { VStack } from "@/styled-system/jsx"
 
 export default async function ({
     children
@@ -16,13 +16,15 @@ export default async function ({
         redirect('/login')
     }
     return (
-        <div className="grid grid-cols-[200px,1fr] gap-5 h-screen">
-            <Flex direction='column' p='5' className="border-r slate10">
-                
-            </Flex>
-            <Flex>
+        <div className={css({
+            display: 'grid',
+            gridTemplateColumns: '200px 1fr',
+            height: 'screen',
+        })}>
+            <Sidebar/>
+            <VStack>
                 {children}
-            </Flex>
+            </VStack>
         </div>
     )
 }
