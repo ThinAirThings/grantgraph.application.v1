@@ -1,8 +1,8 @@
 
 import { redirect } from "next/navigation"
-import { Flex } from "@radix-ui/themes"
-import { LoginForm } from "../components/LoginForm/LoginForm"
 import { auth } from "../libs/auth/auth"
+import { VStack } from "@/styled-system/jsx"
+import { LoginForm } from "../ui/LoginForm/LoginForm"
 
 
 export default async function () {
@@ -11,8 +11,8 @@ export default async function () {
         redirect('/dashboard')
     }
     return (
-        <Flex justify={'center'} align='center' className="h-screen">
+        <VStack justify={'center'} alignItems='center' height='screen'>
             <LoginForm admin={false}/>
-        </Flex>
+        </VStack>
     )
 }

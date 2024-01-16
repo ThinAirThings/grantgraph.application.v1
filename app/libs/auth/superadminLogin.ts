@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 
 
 const db = DynamoDBDocument.from(new DynamoDBClient({}))
-export const adminLogin = async ({
+export const superadminLogin = async ({
     email,
     password
 }: {
@@ -12,7 +12,7 @@ export const adminLogin = async ({
     password: string
 }) => {
     const entry = await db.get({
-        TableName: process.env.ADMINS_TABLE,
+        TableName: process.env.SUPERADMINS_TABLE,
         Key: {
             email
         }
@@ -20,7 +20,5 @@ export const adminLogin = async ({
     if (!entry.Item) return false
     const match = await bcrypt.compare(password, entry.Item.password)
     if (!match) return false
-    // if (!match) return '/admin/login?error=Invalid%20Credentials'
-    // NOTE!!! id wont show up on auth
     return true
 }

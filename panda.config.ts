@@ -1,4 +1,4 @@
-import { defineConfig } from "@pandacss/dev";
+import { defineConfig, defineGlobalStyles } from "@pandacss/dev";
 import radixColorsPreset from "pandacss-preset-radix-colors";
 
 export default defineConfig({
@@ -12,7 +12,7 @@ export default defineConfig({
     exclude: [],
 
     // Radix Preset
-    presets: [radixColorsPreset()],
+    presets: ['@pandacss/preset-panda', radixColorsPreset()],
     // Useful for theme customization
     theme: {
         extend: {},
@@ -23,4 +23,21 @@ export default defineConfig({
 
     // The JSX framework to use
     jsxFramework: "react",
+
+    // Define Global CSS
+    globalCss: defineGlobalStyles({
+        '*': {
+            boxSizing: 'border-box',
+            p: 0,
+            m: 0
+        },
+        'html, body': {
+            maxWidth: 'screen',
+            overflowX: 'hidden'
+        },
+        a: {
+            color: 'inherit',
+            textDecoration: 'none'
+        }
+    })
 });

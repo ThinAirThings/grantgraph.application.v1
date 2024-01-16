@@ -1,14 +1,8 @@
-import NextAuth, { NextAuthConfig } from 'next-auth';
+import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocument, PutCommand } from "@aws-sdk/lib-dynamodb";
-import bcrypt from 'bcrypt';
-import { adminLogin } from './adminLogin';
+import { superadminLogin } from './superadminLogin';
 import { userLogin } from './userLogin';
-import { redirect } from 'next/navigation';
 
-
-const db = DynamoDBDocument.from(new DynamoDBClient({}))
 export const {
     auth,
     signIn,
@@ -16,18 +10,17 @@ export const {
 } = NextAuth({
     providers: [
         Credentials({
-            authorize: async (_credentials) => {
-                const { email, password, _admin } = _credentials as {
+            authorize: async (credentials) => {
+                const { email, password, admin } = credentials as {
                     email: string,
                     password: string,
-                    _admin: string
+                    admin: boolean
                 }
-                const admin = _admin === 'true'
                 // Handle Admin Login
                 if (admin) {
-                    return await adminLogin({email, password})
+                    return await superadminLogin({email, password})
                         ? {
-                            role: 'ggAdmin',
+                            role: 'superadmin',
                             email,
                             id: email
                         } : null
@@ -35,7 +28,7 @@ export const {
                 // Handle User Login
                 return await userLogin({email, password})
                     ? {
-                        role: 'user',
+                        role: 'user', // Or admin
                         email,
                         id: email
                     } : null
@@ -57,12 +50,11 @@ export const {
         // This runs every time the auth() fn is called
         session: async ({session, token}) => {
             // Get user id from sub
-            if (session.user && token.sub) {
+            if (session.user && token.sub && token.role) {
                 session.user.id = token.sub
                 session.user.role = token.role as string
             }
             return session
         },
-
     }
 }) 
