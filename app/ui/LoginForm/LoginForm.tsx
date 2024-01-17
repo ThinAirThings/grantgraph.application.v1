@@ -9,6 +9,7 @@ import { signInAction } from "../../libs/auth/signInAction";
 import { VStack } from "@/styled-system/jsx";
 import {useAction} from 'next-safe-action/hooks'
 import { submitExecution, getStringError } from "@/app/libs/safe-action/utlities";
+import { LoadingButton } from "../LoadingButton/LoadingButton";
 
 export const LoginForm: FC<{
     admin: boolean
@@ -18,6 +19,7 @@ export const LoginForm: FC<{
     // Form Actions
     const {
         result: signInResult,
+        status: signInStatus,
         execute: executeSignIn
     } = useAction(signInAction)
     return (
@@ -37,7 +39,7 @@ export const LoginForm: FC<{
                         {(signInResult.data) 
                             && <Text color='red'>{signInResult.data}</Text>
                         }
-                        <FormButton mt='5'>Sign In</FormButton>
+                        <LoadingButton isLoading={signInStatus === 'executing'} mt='5'>Sign In</LoadingButton>
                     </VStack>
                 </Form.Root>
             </VStack>
