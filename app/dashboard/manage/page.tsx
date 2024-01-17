@@ -34,7 +34,6 @@ export default async function () {
                             <Table.ColumnHeaderCell>Employee Name</Table.ColumnHeaderCell>
                             <Table.ColumnHeaderCell>Account Type</Table.ColumnHeaderCell>
                             <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
-                            <Table.ColumnHeaderCell>Setup Complete</Table.ColumnHeaderCell>
                             <Table.ColumnHeaderCell>Last Signed In</Table.ColumnHeaderCell>
                             <Table.ColumnHeaderCell>Matches Found</Table.ColumnHeaderCell>
                             <Table.ColumnHeaderCell>Open Opportunities</Table.ColumnHeaderCell>
@@ -47,8 +46,10 @@ export default async function () {
                                 <Table.Cell>{user.userName}</Table.Cell>
                                 <Table.Cell>{user.userRole === 'admin' ? 'Admin' : 'Researcher'}</Table.Cell>
                                 <Table.Cell>{user.userEmail}</Table.Cell>
-                                <Table.Cell><Badge><CheckIcon/>Complete</Badge></Table.Cell>
-                                <Table.Cell>-</Table.Cell>
+                                <Table.Cell>{user.lastSignIn
+                                    ?  new Date(user.lastSignIn).toLocaleDateString('en-US')
+                                    : '-'
+                                }</Table.Cell>
                                 <Table.Cell>-</Table.Cell>
                                 <Table.Cell>-</Table.Cell>
                             </StyledRow>

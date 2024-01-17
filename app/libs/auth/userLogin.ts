@@ -22,6 +22,20 @@ export const userLogin = async ({
     if (!entry.Items?.[0]) return null
     const match = await bcrypt.compare(password, entry.Items[0].password)
     if (!match) return null
+    // Check if this is the first sign in
+
+    // Update last sign in
+    await db.update({
+        TableName: process.env.ORGANIZATIONS_TABLE,
+        Key: {
+            organizationId: entry.Items[0].organizationId,
+            userId: entry.Items[0].userId
+        },
+        UpdateExpression: 'SET lastSignIn = :lastSignIn',
+        ExpressionAttributeValues: {
+            ':lastSignIn': new Date().toISOString()
+        }
+    })
     // NOTE!!! id wont show up on auth
     return {
         name: entry.Items[0].userName,

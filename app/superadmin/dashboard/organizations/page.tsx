@@ -13,7 +13,8 @@ export type OrganizationEntry = {
         userId: string
         userName: string
         userEmail: string
-        userRole: string
+        userRole: string,
+        lastSignIn?: string
     }>
 }
 // const StyledScrollArea = styled(ScrollArea)
@@ -28,7 +29,7 @@ const getCachedOrganizations = cache(async () => (await dynamodb.scan({
             userId: item.userId,
             userName: item.userName,
             userEmail: item.userEmail,
-            userRole: item.userRole
+            userRole: item.userRole,
         }
         return organizationMap
     }
@@ -41,7 +42,7 @@ const getCachedOrganizations = cache(async () => (await dynamodb.scan({
                 userId: item.userId,
                 userName: item.userName,
                 userEmail: item.userEmail,
-                userRole: item.userRole
+                userRole: item.userRole,
             }
         }
     }

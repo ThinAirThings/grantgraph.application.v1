@@ -21,7 +21,8 @@ export const getCachedOrganization = cache(async (organizationId: string) => (aw
             userId: item.userId,
             userName: item.userName,
             userEmail: item.userEmail,
-            userRole: item.userRole
+            userRole: item.userRole,
+            lastSignIn: item.lastSignIn,
         }
         return organization
     }
@@ -32,7 +33,8 @@ export const getCachedOrganization = cache(async (organizationId: string) => (aw
             userId: item.userId,
             userName: item.userName,
             userEmail: item.userEmail,
-            userRole: item.userRole
+            userRole: item.userRole,
+            lastSignIn: item.lastSignIn,
         }
     }
     return organization

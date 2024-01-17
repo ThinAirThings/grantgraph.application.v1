@@ -20,6 +20,7 @@ const nextConfig = {
                 })
             );
         }
+        config.resolve.alias.canvas = false;    // For react-pdf
         // Important: return the modified config
         return config;
     },
