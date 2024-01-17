@@ -45,8 +45,8 @@ export default async function () {
                                 _hover={{bg: 'slate.4'}}
                             >
                                 <Table.Cell>{user.userName}</Table.Cell>
-                                <Table.Cell>{user.userEmail}</Table.Cell>
                                 <Table.Cell>{user.userRole === 'admin' ? 'Admin' : 'Researcher'}</Table.Cell>
+                                <Table.Cell>{user.userEmail}</Table.Cell>
                                 <Table.Cell><Badge><CheckIcon/>Complete</Badge></Table.Cell>
                                 <Table.Cell>-</Table.Cell>
                                 <Table.Cell>-</Table.Cell>
