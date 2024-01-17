@@ -36,6 +36,7 @@ export const {
         jwt: async (jwt) => {
             // Handle Admin Login
             if (jwt.user?.role) {
+                jwt.token.name = jwt.user.name
                 jwt.token.email = jwt.user.id
                 jwt.token.role = jwt.user.role
                 return jwt.token
@@ -47,6 +48,7 @@ export const {
         session: async ({session, token}) => {
             // Get user id from sub
             if (session.user && token.sub && token.role) {
+                session.user.name = token.name as string
                 session.user.id = token.sub
                 session.user.role = token.role as string
             }

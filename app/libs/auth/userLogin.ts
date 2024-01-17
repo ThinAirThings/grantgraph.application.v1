@@ -24,6 +24,7 @@ export const userLogin = async ({
     if (!match) return null
     // NOTE!!! id wont show up on auth
     return {
+        name: entry.Items[0].userName,
         role: entry.Items[0].userRole,
         email: entry.Items[0].userEmail,
         id: entry.Items[0].userId
