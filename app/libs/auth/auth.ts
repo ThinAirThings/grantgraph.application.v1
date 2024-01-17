@@ -14,10 +14,11 @@ export const {
                 const { email, password, admin } = credentials as {
                     email: string,
                     password: string,
-                    admin: boolean
+                    admin: string
                 }
+
                 // Handle Admin Login
-                if (admin) {
+                if (admin === 'true') {
                     return await superadminLogin({email, password})
                         ? {
                             role: 'superadmin',
@@ -27,11 +28,6 @@ export const {
                 }
                 // Handle User Login
                 return await userLogin({email, password})
-                    ? {
-                        role: 'user', // Or admin
-                        email,
-                        id: email
-                    } : null
             }
         })
     ],

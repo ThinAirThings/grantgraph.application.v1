@@ -31,5 +31,7 @@ export const signInAction = safeAction(z.object({
             }
         }
     }
-    redirect('/superadmin/dashboard')
+    admin 
+        ? redirect('/superadmin/dashboard')
+        : redirect('/dashboard')
 })

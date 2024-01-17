@@ -11,15 +11,21 @@ export const userLogin = async ({
     email: string,
     password: string
 }) => {
-    const entry = await db.get({
+    const entry = await db.query({
         TableName: process.env.ORGANIZATIONS_TABLE,
-        Key: {
-            email
+        IndexName: 'userEmail-index',
+        KeyConditionExpression: 'userEmail = :userEmail',
+        ExpressionAttributeValues: {
+            ':userEmail': email
         }
     })
-    if (!entry.Item) return '/login?error=Invalid%20Credentials'
-    const match = await bcrypt.compare(password, entry.Item.password)
-    if (!match) return '/login?error=Invalid%20Credentials'
+    if (!entry.Items?.[0]) return null
+    const match = await bcrypt.compare(password, entry.Items[0].password)
+    if (!match) return null
     // NOTE!!! id wont show up on auth
-    return true
+    return {
+        role: entry.Items[0].userRole,
+        email: entry.Items[0].userEmail,
+        id: entry.Items[0].userId
+    }
 }

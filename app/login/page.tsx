@@ -7,11 +7,11 @@ import { LoginForm } from "../ui/LoginForm/LoginForm"
 
 export default async function () {
     const session = await auth()
-    if (session?.user) {
+    if ((session?.user?.role === 'admin') || (session?.user?.role === 'user')) {
         redirect('/dashboard')
     }
     return (
-        <VStack justify={'center'} alignItems='center' height='screen'>
+        <VStack justify={'center'} alignItems={'center'} w='full' h='screen'>
             <LoginForm admin={false}/>
         </VStack>
     )

@@ -34,8 +34,8 @@ export const LoginForm: FC<{
                     <VStack width='full' gap='5'>
                         <FormField label="Email" type="text" fieldKey="email" required={true}/>
                         <FormField label="Password" type="password" fieldKey="password" required={true}/>
-                        {(signInResult.validationErrors || signInResult.serverError) 
-                            && <Text color='red'>{getStringError(signInResult)}</Text>
+                        {(signInResult.data) 
+                            && <Text color='red'>{signInResult.data}</Text>
                         }
                         <FormButton mt='5'>Sign In</FormButton>
                     </VStack>
