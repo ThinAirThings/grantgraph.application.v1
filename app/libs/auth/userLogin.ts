@@ -27,6 +27,8 @@ export const userLogin = async ({
         name: entry.Items[0].userName,
         role: entry.Items[0].userRole,
         email: entry.Items[0].userEmail,
-        id: entry.Items[0].userId
+        id: entry.Items[0].userId,
+        userId: entry.Items[0].userId,
+        organizationId: entry.Items[0].organizationId
     }
 }

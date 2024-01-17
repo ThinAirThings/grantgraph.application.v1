@@ -5,13 +5,11 @@ import { OrganizationEntry } from "../page";
 import { Heading, Table } from "@radix-ui/themes";
 import { ChevronLeftIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
-import { BasicCreateDialog } from "@/app/ui/BasicDialog/BasicCreateDialog";
-import { createUserAction } from "@/app/libs/shared-actions/createUserAction";
 import { CreateUserDialog } from "@/app/ui/dialogs/CreateUserDialog/CreateUserDialog";
 import { EditUserDropdown } from "@/app/ui/dropdown-menus/EditUserDropdown/EditUserDropdown";
 
 
-const getCachedOrganization = cache(async (organizationId: string) => (await dynamodb.query({
+export const getCachedOrganization = cache(async (organizationId: string) => (await dynamodb.query({
     TableName: process.env.ORGANIZATIONS_TABLE,
     KeyConditionExpression: 'organizationId = :organizationId',
     ExpressionAttributeValues: {

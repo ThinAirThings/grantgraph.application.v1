@@ -23,7 +23,9 @@ export const {
                         ? {
                             role: 'superadmin',
                             email,
-                            id: email
+                            id: email,
+                            userId: email,
+                            organizationId: 'superadmin'
                         } : null
                 }
                 // Handle User Login
@@ -37,8 +39,9 @@ export const {
             // Handle Admin Login
             if (jwt.user?.role) {
                 jwt.token.name = jwt.user.name
-                jwt.token.email = jwt.user.id
+                jwt.token.email = jwt.user.email
                 jwt.token.role = jwt.user.role
+                jwt.token.organizationId = jwt.user.organizationId
                 return jwt.token
             }
             // Handle User Login
@@ -48,8 +51,9 @@ export const {
         session: async ({session, token}) => {
             // Get user id from sub
             if (session.user && token.sub && token.role) {
+                session.user.organizationId = token.organizationId as string
                 session.user.name = token.name as string
-                session.user.id = token.sub
+                session.user.userId = token.sub
                 session.user.role = token.role as string
             }
             return session
