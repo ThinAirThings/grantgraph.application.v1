@@ -17,7 +17,7 @@ export const BookmarkButton: FC<{
     const {
         execute, result, optimisticData
     } = useOptimisticAction(updateSavedGrantAction, {
-        saved: savedGrantIds.includes(grantId)
+        saved: savedGrantIds?.includes(grantId)
     }, (state) => ({
         saved: !state.saved
     }))
@@ -27,7 +27,7 @@ export const BookmarkButton: FC<{
                 event.stopPropagation()
                 execute({
                     grantId: grantId,
-                    saved: !savedGrantIds.includes(grantId)
+                    saved: !savedGrantIds?.includes(grantId)
                 })
             }}
         >{(() => {

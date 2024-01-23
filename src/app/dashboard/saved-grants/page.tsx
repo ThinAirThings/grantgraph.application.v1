@@ -12,7 +12,7 @@ export default async function () {
         ...(await auth())!.user!
     })
     const savedOpenGrants = (await getCachedOpenGrants())!
-        .filter(grant => savedGrantIds.includes(grant.grantId))
+        .filter(grant => savedGrantIds?.includes(grant.grantId))
     return (
         <VStack alignItems='start'>
             <Heading>Saved Grant Opportunities</Heading>
