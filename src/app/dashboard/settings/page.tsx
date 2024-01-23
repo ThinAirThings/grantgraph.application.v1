@@ -7,6 +7,7 @@ export default function () {
         <VStack alignItems='start' w='full'>
             <Heading mb='4'>Settings</Heading>
             <Text>Coming soon!</Text>
+
         </VStack>
     )
 }

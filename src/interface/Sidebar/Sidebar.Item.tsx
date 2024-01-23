@@ -17,7 +17,6 @@ export const SidebarItem: FC<{
     children
 }) => {
     const pathname = usePathname()
-    const pathSegments = pathname.split('/')
     return (
         <NavigationMenu.Item asChild>
             <HStack alignItems='center' w='full' >
