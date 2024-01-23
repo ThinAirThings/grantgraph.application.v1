@@ -27,7 +27,6 @@ export const getCachedAutoMatches = cache(async ({
 }): Promise<GrantEntry[]> => {
     const {
         embedding: researcherEmbedding,
-        savedGrantIds
     } = (await dynamodb.get({
         TableName: process.env.ORGANIZATIONS_TABLE,
         Key: {
@@ -41,7 +40,6 @@ export const getCachedAutoMatches = cache(async ({
     // Calculate Similarity
     const matches = grantEmbeddings?.map((grant) => ({
         ...grant,
-        saved: savedGrantIds?.includes(grant.grantId),
         similarity: cosineSimilarity(researcherEmbedding, grant.embedding)
     }))
         .sort((a, b) => b.similarity - a.similarity)
