@@ -3,7 +3,7 @@ import { ReactNode } from "react"
 import { Grid, VStack } from "@/styled-system/jsx"
 import { SidebarRoot } from "../../interface/Sidebar/Sidebar.Root"
 import { SidebarItem } from "../../interface/Sidebar/Sidebar.Item"
-import { FileTextIcon, GearIcon, HomeIcon, MagnifyingGlassIcon, PersonIcon } from "@radix-ui/react-icons"
+import { BookmarkIcon, FileTextIcon, GearIcon, HomeIcon, MagnifyingGlassIcon, PersonIcon } from "@radix-ui/react-icons"
 import { Text } from "@radix-ui/themes"
 import { auth } from "@/src/libs/auth/auth"
 
@@ -33,6 +33,9 @@ export default async function ({
                 {role === 'user' && <SidebarItem location='top' href='/dashboard/knowledge-base' >
                     <FileTextIcon/><Text weight='medium'>Knowledge Base</Text>
                 </SidebarItem>}
+                <SidebarItem location='top' href='/dashboard/saved-grants' >
+                    <BookmarkIcon/><Text weight='medium'>Saved Grants</Text>
+                </SidebarItem>
                 <SidebarItem location='bottom' href='/dashboard/settings' >
                     <GearIcon/><Text weight='medium'>Settings</Text>
                 </SidebarItem>

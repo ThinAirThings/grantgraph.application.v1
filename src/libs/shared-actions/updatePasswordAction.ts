@@ -1,10 +1,10 @@
 
 'use server'
 
-import { dynamodb } from "@/src/app/libs/aws/dynamodb.client"
-import { safeAction } from "@/src/app/libs/safe-action/utlities"
 import {z} from 'zod'
 import { revalidateTag } from "next/cache"
+import { safeAction } from '../safe-action/utlities'
+import { dynamodb } from '../aws/dynamodb.client'
 
 export const updateUserAction = safeAction(z.object({
     organizationId: z.string(),

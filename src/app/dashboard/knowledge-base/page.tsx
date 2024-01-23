@@ -1,37 +1,18 @@
-import { HStack, VStack, styled } from "@/styled-system/jsx"
-import { Badge, Heading, Table, Text } from "@radix-ui/themes"
+import { HStack, VStack } from "@/styled-system/jsx"
+import { Heading, Table } from "@radix-ui/themes"
 import { redirect } from "next/navigation"
-import { unstable_cache as cache } from 'next/cache';
-import { ChevronRightIcon } from "@radix-ui/react-icons"
-import { dynamodb } from "@/src/libs/aws/dynamodb.client";
+
+
 import { auth } from "@/src/libs/auth/auth";
 import { CreateDocumentButton } from "./client.CreateDocumentButton";
 import { DocumentRow } from "./client.DocumentRow";
+import { getCachedDocuments } from "@/src/cache/getCachedDocuments";
 
 export type DocumentEntry = {
     documentId: string
     documentName: string
     documentType: 'application/pdf'
 }
-
-const getCachedDocuments = cache(async (userId: string) => (await dynamodb.query({
-    TableName: process.env.DOCUMENTS_TABLE,
-    KeyConditionExpression: 'userId = :userId',
-    ExpressionAttributeValues: {
-        ':userId': userId
-    }})).Items?.reduce((documents: Record<string, DocumentEntry>, item) => {
-        documents[item.documentId] = {
-            documentId: item.documentId,
-            documentName: item.documentName,
-            documentType: item.documentType,
-        }
-        return documents
-    }
-, {}), ['documents'], {
-    tags: ['documents'],
-    revalidate: 60,
-})
-
 
 
 export default async function () {
@@ -40,7 +21,6 @@ export default async function () {
         redirect('/dashboard')
     }
     const documents = await getCachedDocuments(session?.user?.userId)
-    console.log(documents)
     return (
         <VStack alignItems='start' w='full'>
             <Heading>Your Knowledge Base</Heading>
