@@ -24,7 +24,7 @@ export const searchGrantsAction = safeAction(z.object({
     })).data.map(({embedding}) => embedding))
     return grantEmbeddings?.map((grant) => ({
         ...grant,
-        similarity: cosineSimilarity(queryEmbedding, grant.embedding)
+        similarity: cosineSimilarity(queryEmbedding, grant.description.embedding)
     }))
     .sort((a, b) => b.similarity - a.similarity)
     .slice(0, 20)

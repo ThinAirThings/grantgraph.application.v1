@@ -10,7 +10,7 @@ export const getCachedSimilarGrants = cache(async (grantId: string) => {
     const allGrantsData = await getCachedOpenGrants()
     return allGrantsData?.map((grant) => ({
         ...grant,
-        similarity: cosineSimilarity(grantData.embedding, grant.embedding)
+        similarity: cosineSimilarity(grantData.title.embedding, grant.title.embedding)
     }))
     .sort((a, b) => b.similarity - a.similarity)
     .slice(0, 21)

@@ -1,12 +1,12 @@
 'use client'
 
-import { GrantEntry } from "@/src/cache/getCachedAutoMatches"
 import { Grid, GridItem, styled } from "@/styled-system/jsx"
 import { Box, Card, Flex, Heading, IconButton, Strong, Text } from "@radix-ui/themes"
 import { useRouter } from "next/navigation"
 import { FC } from "react"
 import { Link2Icon } from "@radix-ui/react-icons"
 import { BookmarkButton } from "../BookmarkButton/client.BookmarkButton"
+import { GrantEntry } from "@/src/types/GrantEntry"
 
 const StyledCard = styled(Card)
 
@@ -27,7 +27,7 @@ export const MatchCardClient: FC<{
             <Grid gridTemplateColumns={`5fr 1fr`} gap='4'>
                 <Flex direction={'column'} gap='2'>
                     <Flex gap='3' align='center'>
-                        <Heading size='4'>{grant.title}</Heading>
+                        <Heading size='4'>{grant.title.text}</Heading>
                         {grant.grantSourceUrl && 
                         <Box style={{marginTop: '10px'}} onClick={(event) => event.stopPropagation()}>
                             <a href={grant.grantSourceUrl} target='_blank' >
@@ -39,7 +39,7 @@ export const MatchCardClient: FC<{
                             grantId={grant.grantId}
                         />
                     </Flex>
-                    <Text size='3' color='gray' weight='bold'>{grant.agency}</Text>
+                    <Text size='3' color='gray' weight='bold'>{grant.agency.text}</Text>
                     <Flex gap='3'>
                         {[{
                             label: 'Award Ceiling',
@@ -57,7 +57,7 @@ export const MatchCardClient: FC<{
                                     {new Intl.NumberFormat('en-US', {
                                         style: 'currency',
                                         currency: 'USD',
-                                    }).format(value)}
+                                    }).format(parseInt(value))}
                                 </Text>
                             </Flex>
                         ))}

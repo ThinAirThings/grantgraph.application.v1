@@ -63,8 +63,8 @@ export const SimilarGrantsControl: FC<{
                         onClick={() => router.push(`/dashboard/find-grants/${grant.grantId}`)}
                     >
                         <VStack gap='2' alignItems='start'>
-                            <Heading size={'2'} color='gray'>{grant.agency}</Heading>
-                            <Heading size='2'>{grant.title}</Heading>
+                            <Heading size={'2'} color='gray'>{grant.agency.text}</Heading>
+                            <Heading size='2'>{grant.title.text}</Heading>
                         </VStack>
                     </Card>
                 ))}

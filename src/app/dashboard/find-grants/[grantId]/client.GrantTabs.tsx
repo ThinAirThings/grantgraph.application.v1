@@ -29,7 +29,7 @@ export const GrantTabs: FC<{
                                 <Text color='gray' weight='bold'>{grantData.closeDate}</Text>
                             </Flex>
                         </Flex>
-                        <Heading color='gray' size='2'>{grantData.agency}</Heading>
+                        <Heading color='gray' size='2'>{grantData.agency.text}</Heading>
                         <Text>{grantData.rawDescription}</Text>
                     </Flex>
                 </Tabs.Content>

@@ -1,5 +1,7 @@
 import { unstable_cache as cache } from 'next/cache';
 import { dynamodb } from '../libs/aws/dynamodb.client';
+import { GrantEntry } from '../types/GrantEntry';
+import { EmbeddedText } from '../types/EmbeddedText';
 
 export const getCachedOpenGrant = cache(async (grantId: string) => {
     const grantData =  ((await dynamodb.get({
@@ -9,8 +11,9 @@ export const getCachedOpenGrant = cache(async (grantId: string) => {
         }
     }))!.Item as {
         grantId: string,
-        title: string,
-        agency: string,
+        title: EmbeddedText,
+        agency: EmbeddedText,
+        description: EmbeddedText,
         openDate: string,
         closeDate: string,
         metadata: {
@@ -18,7 +21,6 @@ export const getCachedOpenGrant = cache(async (grantId: string) => {
         },
         details: {
             rawDescription: string,
-            embedding: number[],
             grantSourceUrl: string
         },
         financials: {
@@ -32,15 +34,15 @@ export const getCachedOpenGrant = cache(async (grantId: string) => {
         title: grantData.title,
         opportunityNumber: grantData.metadata.opportunityNumber,
         openDate: grantData.openDate,
+        description: grantData.description,
         closeDate: grantData.closeDate,
         agency: grantData.agency,
         rawDescription: grantData.details.rawDescription,
-        embedding: grantData.details.embedding,
         grantSourceUrl: grantData.details.grantSourceUrl,
         awardCeiling: grantData.financials.awardCeiling,
         awardFloor: grantData.financials.awardFloor,
         awardEstimate: grantData.financials.awardEstimate
-    }
+    } as GrantEntry
 }, ['open-grant'], {
     revalidate: 60*60
 })

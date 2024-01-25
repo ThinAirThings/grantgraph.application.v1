@@ -1,5 +1,6 @@
 import { unstable_cache as cache } from 'next/cache';
 import { dynamodb } from '../libs/aws/dynamodb.client';
+import { GrantEntry } from '../types/GrantEntry';
 
 
 export const getCachedOpenGrants = cache(async () => (await dynamodb.scan({
@@ -8,6 +9,7 @@ export const getCachedOpenGrants = cache(async () => (await dynamodb.scan({
     grantId,
     title,
     agency,
+    description,
     openDate,
     closeDate,
     metadata: {
@@ -16,7 +18,6 @@ export const getCachedOpenGrants = cache(async () => (await dynamodb.scan({
     details: {
         grantSourceUrl,
         rawDescription,
-        embedding
     },
     financials: {
         awardCeiling,
@@ -30,12 +31,12 @@ export const getCachedOpenGrants = cache(async () => (await dynamodb.scan({
     openDate,
     closeDate,
     agency,
+    description,
     rawDescription,
-    embedding,
     grantSourceUrl,
     awardCeiling,
     awardFloor,
     awardEstimate
-})), ['open-grants'], {
+} as GrantEntry)), ['open-grants'], {
     revalidate: 60*60
 })

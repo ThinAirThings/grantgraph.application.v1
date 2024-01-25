@@ -19,6 +19,5 @@ export const SimilarGrants: FC<{
             <Heading size='4' color='gray'>Similar Grants</Heading>
             <SimilarGrantsControl rootGrantId={grantId} similarGrants={similarGrants}/>
         </VStack>
-
     )
 }
