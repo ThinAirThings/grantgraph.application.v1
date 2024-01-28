@@ -14,7 +14,7 @@ export default async function () {
     const savedOpenGrants = (await getCachedOpenGrants())!
         .filter(grant => savedGrantIds?.includes?.(grant.grantId))
     return (
-        <VStack alignItems='start'>
+        <VStack alignItems='start' w='full'>
             <Heading>Saved Grant Opportunities</Heading>
             <ScrollArea type="always" scrollbars="vertical" style={{height: `calc(100vh - 130px)`}}>
                 <Flex direction={'column'} gap='3' pr='4'>

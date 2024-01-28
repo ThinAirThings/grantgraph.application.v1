@@ -9,20 +9,20 @@ export const getCachedSavedGrantIds = cache(async ({
     organizationId: string,
     userId: string
 }) => {
-    const { savedGrantIds } = (await dynamodb.get({
+    const item = (await dynamodb.get({
         TableName: process.env.ORGANIZATIONS_TABLE,
         Key: {
             organizationId,
             userId
         },
     })).Item as {
-        savedGrantIds: string[],
+        savedGrantIds?: string[],
     }
     revalidateTag('saved-grants')
     return {
-        savedGrantIds: [...savedGrantIds]
+        savedGrantIds: [...item.savedGrantIds??[]]
     }
 }, ['saved-grant-ids'], {
     tags: ['saved-grant-ids'],
-    revalidate: 1
+    revalidate: 10
 })

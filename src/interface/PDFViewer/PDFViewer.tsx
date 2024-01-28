@@ -14,9 +14,11 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 export const PDFViewer: FC<{
-    pdfDocumentUrl: string
+    pdfDocumentUrl: string,
+    heightOffset?: number
 }> = ({
-    pdfDocumentUrl
+    pdfDocumentUrl,
+    heightOffset
 }) => {
     const [numPages, setNumPages] = useState<number | null>(null);
     const [pageNumber, setPageNumber] = useState(1);
@@ -37,9 +39,9 @@ export const PDFViewer: FC<{
         changePage(1);
     }
     return (
-        <Flex direction={'column'} style={{maxHeight: '100%'}}>
+        <Flex direction={'column'} style={{maxHeight: '100%', width: 'fit-content'}}>
             <Heading size='4' color='gray' >PDF Preview</Heading>
-            <ScrollArea type="always" scrollbars="vertical" style={{height: `calc(100vh - 175px)`}}>
+            <ScrollArea type="always" scrollbars="vertical" style={{height: `calc(100vh - ${heightOffset??175}px)`}}>
                 <Flex direction={'column'} style={{maxHeight: '100%'}} pr='4'>
                     <Card style={{width: '612px', height: '792px'}}>
                         <Inset>

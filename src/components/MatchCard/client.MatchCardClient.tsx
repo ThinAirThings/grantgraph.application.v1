@@ -6,19 +6,18 @@ import { useRouter } from "next/navigation"
 import { FC } from "react"
 import { Link2Icon } from "@radix-ui/react-icons"
 import { BookmarkButton } from "../BookmarkButton/client.BookmarkButton"
-import { GrantEntry } from "@/src/types/GrantEntry"
+import { StrippedGrantEntry } from "@/src/types/GrantEntry"
 
 const StyledCard = styled(Card)
 
 export const MatchCardClient: FC<{
-    grant: GrantEntry,
+    grant: StrippedGrantEntry,
     savedGrantIds: string[]
 }> = ({ 
     grant,
     savedGrantIds
 }) => {
     const router = useRouter()
-
     return (
         <StyledCard w='full' 
             onClick={() => router.push(`/dashboard/find-grants/${grant.grantId}`)}
@@ -27,7 +26,7 @@ export const MatchCardClient: FC<{
             <Grid gridTemplateColumns={`5fr 1fr`} gap='4'>
                 <Flex direction={'column'} gap='2'>
                     <Flex gap='3' align='center'>
-                        <Heading size='4'>{grant.title.text}</Heading>
+                        <Heading size='4'>{grant.title}</Heading>
                         {grant.grantSourceUrl && 
                         <Box style={{marginTop: '10px'}} onClick={(event) => event.stopPropagation()}>
                             <a href={grant.grantSourceUrl} target='_blank' >
@@ -39,7 +38,7 @@ export const MatchCardClient: FC<{
                             grantId={grant.grantId}
                         />
                     </Flex>
-                    <Text size='3' color='gray' weight='bold'>{grant.agency.text}</Text>
+                    <Text size='3' color='gray' weight='bold'>{grant.agency}</Text>
                     <Flex gap='3'>
                         {[{
                             label: 'Award Ceiling',
@@ -64,7 +63,7 @@ export const MatchCardClient: FC<{
                     </Flex>
                     <Text><Strong>Opportunity Number:</Strong> {grant.opportunityNumber}</Text>
                     
-                    <Text size='2'>{grant.rawDescription.slice(0, 500)}...</Text>
+                    <Text size='2'>{grant.rawDescription?.slice(0, 500)}...</Text>
                 </Flex>
                 <Grid 
                     gridTemplateColumns={`repeat(6, minmax(0, 1fr))`}

@@ -1,12 +1,12 @@
 import { HStack, VStack } from "@/styled-system/jsx";
 import { unstable_cache as cache } from 'next/cache';
-import { OrganizationEntry } from "../page";
 import { Heading, Table } from "@radix-ui/themes";
 import { ChevronLeftIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { dynamodb } from "@/src/libs/aws/dynamodb.client";
 import { CreateUserDialog } from "@/src/api/users/client.CreateUserDialog";
 import { EditUserDropdown } from "@/src/api/users/client.EditUserDropdown";
+import { GrantGraphOrganization } from "@/src/types/GrantGraphOrganization";
 
 
 export const getCachedOrganization = cache(async (organizationId: string) => (await dynamodb.query({
@@ -15,7 +15,7 @@ export const getCachedOrganization = cache(async (organizationId: string) => (aw
     ExpressionAttributeValues: {
         ':organizationId': organizationId
     },
-})).Items?.reduce((organization: OrganizationEntry, item) => {
+})).Items?.reduce((organization: GrantGraphOrganization, item) => {
     if (organization.organizationId && organization.organizationName) {
         organization.users[item.userId] = {
             userId: item.userId,
@@ -38,7 +38,7 @@ export const getCachedOrganization = cache(async (organizationId: string) => (aw
         }
     }
     return organization
-}, {} as OrganizationEntry), ['organization'], {
+}, {} as GrantGraphOrganization), ['organization'], {
     tags: ['organization'],
 })
 

@@ -1,6 +1,7 @@
 import { unstable_cache as cache } from 'next/cache';
 import { dynamodb } from '../libs/aws/dynamodb.client';
 import { getCachedSavedGrantIds } from './getCachedSavedGrantIds';
+import { GrantEntry } from '../types/GrantEntry';
 
 
 export const getCachedSavedGrants = cache(async ({
@@ -24,6 +25,7 @@ export const getCachedSavedGrants = cache(async ({
         grantId,
         title,
         agency,
+        description,
         openDate,
         closeDate,
         metadata: {
@@ -32,7 +34,6 @@ export const getCachedSavedGrants = cache(async ({
         details: {
             grantSourceUrl,
             rawDescription,
-            embedding
         },
         financials: {
             awardCeiling,
@@ -46,13 +47,13 @@ export const getCachedSavedGrants = cache(async ({
         openDate,
         closeDate,
         agency,
+        description,
         rawDescription,
-        embedding,
         grantSourceUrl,
         awardCeiling,
         awardFloor,
         awardEstimate
-    }))
+    } as GrantEntry))
 }, ['saved-grants'], {
     tags: ['saved-grants'],
 })

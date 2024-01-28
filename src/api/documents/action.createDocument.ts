@@ -12,14 +12,12 @@ import { dynamodb } from '@/src/libs/aws/dynamodb.client'
 import pdf from "pdf-parse-debugging-disabled" 
 import GPT4Tokenizer from 'gpt4-tokenizer';
 import { openai } from '../../libs/openai/client.openai'
-import { calculateMeanVector } from '@/src/libs/vectors/calculateMeanVector'
 
 export const createDocumentAction = safeAction(zfd.formData({
     document: zfd.file()
 }), async ({
     document
 }) => {
-    console.log("HERE")
     const {
         organizationId,
         userId

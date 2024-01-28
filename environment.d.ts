@@ -6,6 +6,7 @@ namespace NodeJS {
         DOCUMENTS_TABLE: string
         PAGES_TABLE: string
         GRANTS_TABLE: string
+        PREVIOUSFUNDING_TABLE: string
         SBIR_SOLICITATIONS_TABLE: string
         ZILLIZ_ENDPOINT: string
         ZILLIZ_API_KEY: string

@@ -1,42 +1,36 @@
 import { unstable_cache as cache } from 'next/cache';
-import { dynamodb } from '../libs/aws/dynamodb.client';
-import { GrantEntry } from '../types/GrantEntry';
+import { StrippedGrantEntry } from '../types/GrantEntry';
+import { getAllDynamodbItems } from '../libs/aws/dynamodb.getAll';
 
 
-export const getCachedOpenGrants = cache(async () => (await dynamodb.scan({
-    TableName: process.env.GRANTS_TABLE,
-}))?.Items?.map(({
+export const getCachedOpenGrants = cache(async () => (await getAllDynamodbItems(
+    process.env.GRANTS_TABLE,
+)).map(({
     grantId,
     title,
     agency,
     description,
     openDate,
     closeDate,
-    metadata: {
-        opportunityNumber
-    },
-    details: {
-        grantSourceUrl,
-        rawDescription,
-    },
-    financials: {
-        awardCeiling,
-        awardFloor,
-        awardEstimate
-    }
+    opportunityNumber,
+    grantSourceUrl,
+    rawDescription,
+    awardCeiling,
+    awardFloor,
+    awardEstimate
 }) => ({
     grantId,
-    title,
+    title: title.text,
+    agency: agency.text,
+    description: description.text,
     opportunityNumber,
     openDate,
     closeDate,
-    agency,
-    description,
     rawDescription,
     grantSourceUrl,
     awardCeiling,
     awardFloor,
     awardEstimate
-} as GrantEntry)), ['open-grants'], {
-    revalidate: 60*60
+} as StrippedGrantEntry)), ['open-grants'], {
+    revalidate: 60*60*12
 })

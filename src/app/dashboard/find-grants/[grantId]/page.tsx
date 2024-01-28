@@ -24,7 +24,7 @@ export default async function ({
         <VStack alignItems='start' w='full' maxHeight={'full'}>
             <HStack justify={'space-between'} w='full'>
                 <GrantHeader 
-                    title={grantData.title.text}
+                    title={grantData.title}
                     savedGrantIds={savedGrantIds}
                     grantId={params.grantId}
                 />

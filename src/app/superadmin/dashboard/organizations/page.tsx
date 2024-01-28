@@ -4,24 +4,13 @@ import { HStack, VStack, styled } from "@/styled-system/jsx";
 import { unstable_cache as cache } from 'next/cache';
 import { OrganizationRow } from "./[organizationId]/client.OrganizationRow";
 import { dynamodb } from "@/src/libs/aws/dynamodb.client";
+import { GrantGraphOrganization } from "@/src/types/GrantGraphOrganization";
 
-
-export type OrganizationEntry = {
-    organizationId: string
-    organizationName: string
-    users: Record<string, {
-        userId: string
-        userName: string
-        userEmail: string
-        userRole: string,
-        lastSignIn?: string
-    }>
-}
 // const StyledScrollArea = styled(ScrollArea)
 const getCachedOrganizations = cache(async () => (await dynamodb.scan({
     TableName: process.env.ORGANIZATIONS_TABLE,
     Limit: 20
-})).Items?.reduce((organizationMap: Record<string, OrganizationEntry>, item) => {
+})).Items?.reduce((organizationMap: Record<string, GrantGraphOrganization>, item) => {
     // Check if item already exists in the orgs array by comparing the organizationId
     // If it does, then return the orgs array as is.
     if (Object.keys(organizationMap).includes(item.organizationId)) {
@@ -47,7 +36,7 @@ const getCachedOrganizations = cache(async () => (await dynamodb.scan({
         }
     }
     return organizationMap
-}, {}) as Record<string, OrganizationEntry>, ['organizations'], {
+}, {}) as Record<string, GrantGraphOrganization>, ['organizations'], {
     tags: ['organizations'],
     revalidate: 5
 })
