@@ -65,5 +65,5 @@ export const getCachedAutoMatches = cache(async ({
     return matchedGrants.filter(grant => grant !== null) as GrantMatch[]
 }, ['auto-matches'], {
     tags: ['auto-matches'],
-    revalidate: 1
+    revalidate: 10
 })

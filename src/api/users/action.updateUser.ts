@@ -31,5 +31,5 @@ export const updateUserAction = safeAction(z.object({
             ':userRole': userRole
         }
     })
-    revalidateTag('organization')
+    revalidateTag('user')
 })
