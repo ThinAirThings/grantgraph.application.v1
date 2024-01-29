@@ -3,11 +3,11 @@
 import { styled } from "@/styled-system/jsx"
 import { Table } from "@radix-ui/themes"
 import { FC } from "react"
-import { OrganizationEntry } from "../page"
 import { useRouter } from "next/navigation"
+import { GrantGraphOrganization } from "@/src/types/GrantGraphOrganization"
 
 
-export const OrganizationRow: FC<OrganizationEntry> = ({
+export const OrganizationRow: FC<GrantGraphOrganization> = ({
     organizationId,
     organizationName,
     users

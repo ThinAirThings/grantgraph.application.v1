@@ -7,7 +7,7 @@ import { getCachedSavedGrantIds } from "@/src/cache/getCachedSavedGrantIds";
 
 
 export default async function () {
-    const {savedGrantIds} = await getCachedSavedGrantIds({
+    const savedGrantIds = await getCachedSavedGrantIds({
         ...(await auth())!.user!
     })
     return (

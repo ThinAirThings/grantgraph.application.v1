@@ -1,7 +1,7 @@
 'use client'
 
 import { useOptimisticAction } from "next-safe-action/hooks"
-import { updateSavedGrantAction } from "../MatchCard/action.updateSavedGrant"
+import { updateSavedGrantAction } from "../GrantFeedCard/action.updateSavedGrant"
 import { FC } from "react"
 import { IconButton } from "@radix-ui/themes"
 import { BookmarkFilledIcon, BookmarkIcon } from "@radix-ui/react-icons"

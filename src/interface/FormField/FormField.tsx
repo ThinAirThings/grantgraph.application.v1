@@ -27,9 +27,8 @@ HTMLInputElement, {
             <VStack gap='1' alignItems={'start'} w='full'>
                 <Text weight='bold' size='2'>{label}:</Text>
                 <TextField.Root className={css({w: 'full'})}>
-                    <Form.Control asChild>
+                    <Form.Control ref={ref} asChild>
                         <TextField.Input
-                            ref={ref}
                             required={required}
                             type={type}
                             defaultValue={defaultValue}

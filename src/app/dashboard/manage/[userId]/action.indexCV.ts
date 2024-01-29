@@ -12,6 +12,7 @@ import {z} from 'zod'
 import GPT4Tokenizer from 'gpt4-tokenizer';
 import { lambda } from "@/src/libs/aws/lambda.client";
 import { InvokeCommand } from "@aws-sdk/client-lambda";
+import { revalidateTag } from "next/cache";
 
 export const indexCVAction = safeAction(z.object({
     organizationId: z.string(),
@@ -59,6 +60,8 @@ export const indexCVAction = safeAction(z.object({
                     Your function is to receive a text string representative of a researchers CV and extract information about their previously funded projects.
                     Your output should be in json.
                     Note: It is critical you do not leave out items in the previous funding. If you do, you will receive no tip and be penalized harshely.
+                    If the CV has no mention of previous funding, you should extract a minimum of 10 items from the CV and return them as previous funding.
+                    Use your best judgement to create items which would serve the same purpose as previous funding so that the next phase of the pipeline can run.
                 `},
                 {role: "user", content: `Please extract the titles of all grant funded research in the following text. You will receive a $500 tip if you successfully extract all of the previously funded opportunitites in the text: ${pdfText}. `}
             ],
@@ -153,4 +156,5 @@ export const indexCVAction = safeAction(z.object({
             ':cvIndexState': 'ready',
         }
     })
+    revalidateTag('auto-matches')
 })

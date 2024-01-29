@@ -5,33 +5,28 @@ import { unstable_cache as cache } from 'next/cache';
 import { OrganizationRow } from "./[organizationId]/client.OrganizationRow";
 import { dynamodb } from "@/src/libs/aws/dynamodb.client";
 import { GrantGraphOrganization } from "@/src/types/GrantGraphOrganization";
+import { GrantGraphUser } from "@/src/types/GrantGraphUser";
 
 // const StyledScrollArea = styled(ScrollArea)
-const getCachedOrganizations = cache(async () => (await dynamodb.scan({
+const getCachedOrganizations = cache(async () => ((await dynamodb.scan({
     TableName: process.env.ORGANIZATIONS_TABLE,
     Limit: 20
-})).Items?.reduce((organizationMap: Record<string, GrantGraphOrganization>, item) => {
+})).Items as GrantGraphUser[]).reduce((organizationMap: Record<string, GrantGraphOrganization>, user: GrantGraphUser) => {
     // Check if item already exists in the orgs array by comparing the organizationId
     // If it does, then return the orgs array as is.
-    if (Object.keys(organizationMap).includes(item.organizationId)) {
-        organizationMap[item.organizationId].users[item.userId] = {
-            userId: item.userId,
-            userName: item.userName,
-            userEmail: item.userEmail,
-            userRole: item.userRole,
+    if (Object.keys(organizationMap).includes(user.organizationId)) {
+        organizationMap[user.organizationId].users[user.userId] = {
+            ...user
         }
         return organizationMap
     }
     // If it doesn't, then append the item to the orgs array and return it.
-    organizationMap[item.organizationId] = {
-        organizationId: item.organizationId,
-        organizationName: item.organizationName,
+    organizationMap[user.organizationId] = {
+        organizationId: user.organizationId,
+        organizationName: user.organizationName,
         users: {
-            [item.userId]: {
-                userId: item.userId,
-                userName: item.userName,
-                userEmail: item.userEmail,
-                userRole: item.userRole,
+            [user.userId]: {
+                ...user
             }
         }
     }

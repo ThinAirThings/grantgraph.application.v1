@@ -6,6 +6,7 @@ export type GrantGraphUser = {
     userName: string,
     userRole: string,
     organizationId: string,
+    organizationName: string,
     lastSignIn: string,
     savedGrantIds: string[],
     cvIndexState?: 'indexing' | 'ready',

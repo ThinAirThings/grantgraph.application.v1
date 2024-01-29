@@ -7,34 +7,27 @@ import { dynamodb } from "@/src/libs/aws/dynamodb.client";
 import { CreateUserDialog } from "@/src/api/users/client.CreateUserDialog";
 import { EditUserDropdown } from "@/src/api/users/client.EditUserDropdown";
 import { GrantGraphOrganization } from "@/src/types/GrantGraphOrganization";
+import { GrantGraphUser } from "@/src/types/GrantGraphUser";
 
 
-export const getCachedOrganization = cache(async (organizationId: string) => (await dynamodb.query({
+export const getCachedOrganization = cache(async (organizationId: string) => ((await dynamodb.query({
     TableName: process.env.ORGANIZATIONS_TABLE,
     KeyConditionExpression: 'organizationId = :organizationId',
     ExpressionAttributeValues: {
         ':organizationId': organizationId
     },
-})).Items?.reduce((organization: GrantGraphOrganization, item) => {
+})).Items as GrantGraphUser[]).reduce((organization: GrantGraphOrganization, user: GrantGraphUser) => {
     if (organization.organizationId && organization.organizationName) {
-        organization.users[item.userId] = {
-            userId: item.userId,
-            userName: item.userName,
-            userEmail: item.userEmail,
-            userRole: item.userRole,
-            lastSignIn: item.lastSignIn,
+        organization.users[user.userId] = {
+            ...user,
         }
         return organization
     }
-    organization.organizationId = item.organizationId
-    organization.organizationName = item.organizationName
+    organization.organizationId = user.organizationId
+    organization.organizationName = user.organizationName
     organization.users = {
-        [item.userId]: {
-            userId: item.userId,
-            userName: item.userName,
-            userEmail: item.userEmail,
-            userRole: item.userRole,
-            lastSignIn: item.lastSignIn,
+        [user.userId]: {
+            ...user,
         }
     }
     return organization

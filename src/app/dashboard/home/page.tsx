@@ -3,8 +3,8 @@ import { VStack } from "@/styled-system/jsx";
 import { Flex, Heading, ScrollArea, Text } from "@radix-ui/themes";
 import { redirect } from "next/navigation";
 import { getCachedAutoMatches } from "@/src/cache/getCachedAutoMatches";
-import { MatchCardClient } from "@/src/components/MatchCard/client.MatchCardClient";
 import { getCachedSavedGrantIds } from "@/src/cache/getCachedSavedGrantIds";
+import { GrantFeedCard } from "@/src/components/GrantFeedCard/client.GrantFeedCard";
 
 
 export default async function () {
@@ -13,7 +13,7 @@ export default async function () {
         redirect('/dashboard')
     }
     const matches = await getCachedAutoMatches(session?.user)
-    const {savedGrantIds} = await getCachedSavedGrantIds({
+    const savedGrantIds = await getCachedSavedGrantIds({
         ...(session)!.user!
     })
     return (
@@ -23,10 +23,10 @@ export default async function () {
                 <Text color='gray' weight='bold'>Your Feed</Text>
                 <ScrollArea type="always" scrollbars="vertical" style={{height: `calc(100vh - 175px)`}}>
                     <Flex direction={'column'} style={{maxHeight: '100%'}} pr='4' gap='3'>
-                        {matches.map(match => <MatchCardClient
+                        {matches.map(match => <GrantFeedCard
                             key={match.grantId}
                             grant={match}
-                            savedGrantIds={savedGrantIds}
+                            userSavedGrantIds={savedGrantIds}
                         />)}
                     </Flex>
                 </ScrollArea>

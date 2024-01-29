@@ -13,7 +13,6 @@ export const SimilarGrants: FC<{
     grantId
 }) => {
     const similarGrants = await getCachedSimilarGrants(grantId)
-
     return (
         <VStack alignItems={'start'} width='calc(100vw - 300px)' pr='4'>
             <Heading size='4' color='gray'>Similar Grants</Heading>

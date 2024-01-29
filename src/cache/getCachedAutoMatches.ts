@@ -1,6 +1,6 @@
 import { unstable_cache as cache } from 'next/cache';
 import { dynamodb } from '../libs/aws/dynamodb.client';
-import { StrippedGrantEntry } from '../types/GrantEntry';
+import { GrantMatch } from '../types/GrantMatch';
 
 
 export const getCachedAutoMatches = cache(async ({
@@ -10,14 +10,14 @@ export const getCachedAutoMatches = cache(async ({
     organizationId: string,
     userId: string
 }) => {
-    const researcherActiveMatches = (await dynamodb.get({
+    const researcherActiveMatches = ((await dynamodb.get({
         TableName: process.env.ORGANIZATIONS_TABLE,
         Key: {
             organizationId,
             userId
         },
         ProjectionExpression: 'activeMatches',
-    })).Item!.activeMatches as {
+    })).Item!.activeMatches??[]) as {
         fundingId: string
         grantId: string
         percentMatch: number
@@ -25,14 +25,10 @@ export const getCachedAutoMatches = cache(async ({
     }[]
     const matchedGrants = await Promise.all(researcherActiveMatches.map(async ({grantId, reason, percentMatch}) => {
         try {
-            return {
-                matchReason: reason,
-                percentMatch,
-                ...((await dynamodb.get({
+            return (async () => {
+                const { Item } = await dynamodb.get({
                     TableName: process.env.GRANTS_TABLE,
-                    Key: {
-                        grantId
-                    },
+                    Key: { grantId },
                     ProjectionExpression: `
                         grantId, 
                         title.#text, 
@@ -50,22 +46,23 @@ export const getCachedAutoMatches = cache(async ({
                     `,
                     ExpressionAttributeNames: {
                         '#text': 'text'
-                    }})
-                ).Item! as StrippedGrantEntry)
-            } as StrippedGrantEntry & {
-                matchReason: string
-                percentMatch: number
-            }
+                    }
+                });
+                return {
+                    matchReason: reason,
+                    percentMatch,
+                    ...Item,
+                    title: Item!.title.text,
+                    agency: Item!.agency.text,
+                    description: Item!.description.text,
+                };
+            })();
         } catch (e) {
             console.log(e)
             return null
         }
     }))
-
-    return matchedGrants.filter(grant => grant !== null) as (StrippedGrantEntry & {
-        matchReason: string
-        percentMatch: number
-    })[]
+    return matchedGrants.filter(grant => grant !== null) as GrantMatch[]
 }, ['auto-matches'], {
     tags: ['auto-matches'],
     revalidate: 1

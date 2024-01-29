@@ -26,7 +26,6 @@ export const updateSavedGrantAction = safeAction(z.object({
         }
     })
     revalidateTag('saved-grant-ids')
-    revalidateTag('saved-grants')
     return {
         saved
     }

@@ -17,15 +17,9 @@ export type GrantEntry = {
 
 export type StrippedGrantEntry = {
     grantId: string
-    title: {
-        text: string
-    }
-    agency: {
-        text: string
-    }
-    description: {
-        text: string
-    }
+    title: string
+    agency: string
+    description: string
     opportunityNumber: string
     openDate: string
     closeDate: string

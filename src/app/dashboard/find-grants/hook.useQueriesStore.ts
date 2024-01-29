@@ -2,18 +2,18 @@
 import { create } from "zustand"
 import {enableMapSet, produce} from "immer"
 import {v4 as uuidv4} from "uuid"
-import { GrantEntry } from "@/src/cache/getCachedAutoMatches"
+import { GrantMatch } from "@/src/types/GrantMatch"
 enableMapSet()
 
 
 type QueriesState = {
     searchQueries: Map<string, {query: string}>
-    matchResults: GrantEntry[]
+    matchResults: GrantMatch[]
     includeKnowledgeBase: boolean
     createSearchQuery: () => void
     updateSearchQuery: (queryKey: string, query: string) => void
     deleteSearchQuery: (queryKey: string) => void
-    updateMatchResults: (matchResults: GrantEntry[]) => void
+    updateMatchResults: (matchResults: GrantMatch[]) => void
 }
 // Note that the extra () is so that TypeScript can infer the type.
 // Check Zustand docs but its a contravariant/covariant thing
@@ -32,7 +32,7 @@ export const useQueriesStore = create<QueriesState>()((set) => ({
     deleteSearchQuery: (queryKey: string) => set(produce((state: QueriesState) => {
         state.searchQueries.delete(queryKey)
     })),
-    updateMatchResults: (matchResults: GrantEntry[]) => set(produce((state: QueriesState) => {
+    updateMatchResults: (matchResults: GrantMatch[]) => set(produce((state: QueriesState) => {
         state.matchResults = matchResults
     }))
 }))

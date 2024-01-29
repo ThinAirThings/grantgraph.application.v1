@@ -18,10 +18,7 @@ export const getCachedSavedGrantIds = cache(async ({
     })).Item as {
         savedGrantIds?: string[],
     }
-    revalidateTag('saved-grants')
-    return {
-        savedGrantIds: [...item.savedGrantIds??[]]
-    }
+    return [...item.savedGrantIds??[]]
 }, ['saved-grant-ids'], {
     tags: ['saved-grant-ids'],
     revalidate: 10

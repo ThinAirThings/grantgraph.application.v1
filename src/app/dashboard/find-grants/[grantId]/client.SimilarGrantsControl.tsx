@@ -1,37 +1,42 @@
 'use client'
 
-import { getCachedSimilarGrants } from "@/src/cache/getCachedSimilarGrants"
+import { MatchScoreBadge } from "@/src/components/MatchScoreBadge/client.MatchScoreBadge"
+import { StrippedGrantEntry } from "@/src/types/GrantEntry"
+import { GrantMatch } from "@/src/types/GrantMatch"
 import { HStack, VStack } from "@/styled-system/jsx"
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons"
-import { Card, Grid, Heading, IconButton } from "@radix-ui/themes"
+import { Badge, Card, Grid, Heading, IconButton } from "@radix-ui/themes"
 import { useRouter } from "next/navigation"
-import { FC, useEffect, useState } from "react"
+import { FC, useCallback, useEffect, useState } from "react"
 import {fromEvent} from 'rxjs'
 
-const calculateSliceSize = () => {
-    const windowWidth = window.innerWidth
-    if (windowWidth < 768) {
-        return 1
-    } else if (windowWidth < 1024) {
-        return 2
-    } else if (windowWidth < 1280) {
-        return 3
-    } else {
-        return 4
-    }
-}
+
 
 export const SimilarGrantsControl: FC<{
     rootGrantId: string
-    similarGrants: Awaited<ReturnType<typeof getCachedSimilarGrants>>
+    similarGrants: GrantMatch[]
 }> = ({
     rootGrantId,
     similarGrants
 }) => {
+    const calculateSliceSize = useCallback(() => {
+        if (typeof window === 'undefined') return 1
+        const windowWidth = window.innerWidth
+        if (windowWidth < 768) {
+            return 1
+        } else if (windowWidth < 1024) {
+            return 2
+        } else if (windowWidth < 1280) {
+            return 3
+        } else {
+            return 4
+        }
+    }, [])
     const router = useRouter()
     const [sliceSize, setSliceSize] = useState(calculateSliceSize())
     const [pageNumber, setPageNumber] = useState(0)
     useEffect(() => {
+        if (typeof window === 'undefined') return
         const subscription = fromEvent(window, 'resize')
             .subscribe(() => {
                 setSliceSize(calculateSliceSize())
@@ -63,8 +68,9 @@ export const SimilarGrantsControl: FC<{
                         onClick={() => router.push(`/dashboard/find-grants/${grant.grantId}`)}
                     >
                         <VStack gap='2' alignItems='start'>
-                            <Heading size={'2'} color='gray'>{grant.agency.text}</Heading>
-                            <Heading size='2'>{grant.title.text}</Heading>
+                            <Heading size={'2'} color='gray'>{grant.agency}</Heading>
+                            <Heading size='2'>{grant.title}</Heading>
+                            <MatchScoreBadge percentMatch={grant.percentMatch}/>
                         </VStack>
                     </Card>
                 ))}

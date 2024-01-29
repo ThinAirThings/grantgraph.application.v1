@@ -1,3 +1,4 @@
+import { GrantGraphUser } from "./GrantGraphUser"
 
 
 export type GrantGraphOrganization = {

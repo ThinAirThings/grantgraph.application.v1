@@ -7,6 +7,8 @@ import Link from "next/link";
 import { UserTabs } from "./client.UserTabs";
 import { getCVReadUrlAction } from "./action.getCVReadUrl";
 import { getCachedAutoMatches } from "@/src/cache/getCachedAutoMatches";
+import { getCachedSavedGrantIds } from "@/src/cache/getCachedSavedGrantIds";
+import { getCachedOpenGrants } from "@/src/cache/getCachedOpenGrants";
 
 
 
@@ -31,6 +33,16 @@ export default async function ({
         organizationId: user.organizationId,
         userId: params.userId
     })
+    const userSavedGrantIds = await getCachedSavedGrantIds({
+        organizationId: user.organizationId,
+        userId: user.userId
+    })
+    const researcherSavedGrants = await getCachedOpenGrants(
+        ...await getCachedSavedGrantIds({
+            organizationId: userData.organizationId,
+            userId: params.userId
+        })
+    )
     return (
         <VStack alignItems='start' w='full' maxHeight={'full'}>
             <HStack justify={'space-between'} w='full'>
@@ -49,6 +61,9 @@ export default async function ({
             <UserTabs
                 userData={userData}
                 cvReadUrl={cvReadUrl}
+                matches={matches}
+                userSavedGrantIds={userSavedGrantIds}
+                researcherSavedGrants={researcherSavedGrants}
             />
         </VStack>
     )

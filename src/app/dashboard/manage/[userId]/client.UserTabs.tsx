@@ -1,38 +1,33 @@
 'use client'
-import { updateUserAction } from "@/src/api/users/action.updateUser";
-import { LabeledField } from "@/src/interface/LabeledField/client.LabeledField";
-import { LabeledSelect } from "@/src/interface/LabeledSelect/client.LabeledSelect";
-import { LoadingButton } from "@/src/interface/LoadingButton/LoadingButton";
 import { GrantGraphUser } from "@/src/types/GrantGraphUser";
-import { Grid, VStack } from "@/styled-system/jsx";
-import { CheckIcon, FileTextIcon, UploadIcon } from "@radix-ui/react-icons";
-import { Badge, Box, Button, Flex, Heading, Tabs, Text } from "@radix-ui/themes";
-import { FC, useEffect, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import {useImmer} from 'use-immer'
-import { getCVUploadUrlAction } from "./action.getCVUploadUrl";
-import { PDFViewer } from "@/src/interface/PDFViewer/PDFViewer";
-import { indexCVAction } from "./action.indexCV";
+import { CheckIcon, FileTextIcon, InfoCircledIcon, UploadIcon } from "@radix-ui/react-icons";
+import { Badge, Box, Flex, Heading, IconButton, Tabs, Tooltip } from "@radix-ui/themes";
+import { FC, Suspense, useEffect, useState } from "react";
 import { getCVIndexStateAction } from "./action.getCVIndexState";
-import { updateCVIndexStateAction } from "./action.updateCVIndexState";
 import { RotatingLines } from "react-loader-spinner";
 import { token } from "@/styled-system/tokens";
-import { updateResearcherMatchesAction } from "./action.updateResearcherMatches";
 import { ProfileTab } from "./client.tab.Profile";
-import { Feed } from "./server.tab.MatchFeed";
+import { GrantMatch } from "@/src/types/GrantMatch";
+import { GrantFeed } from "@/src/components/GrantFeed/client.GrantFeed";
+import { StrippedGrantEntry } from "@/src/types/GrantEntry";
+import { InfoTooltip } from "@/src/interface/InfoTooltip/client.InfoTooltip";
+import Loading from "./loading";
 
 
 export const UserTabs: FC<{
-    userData: GrantGraphUser,
+    userData: GrantGraphUser
     cvReadUrl: string | null | undefined
+    matches: GrantMatch[]
+    userSavedGrantIds: string[]
+    researcherSavedGrants: StrippedGrantEntry[]
 }> = ({
     userData,
-    cvReadUrl
+    cvReadUrl,
+    matches,
+    userSavedGrantIds,
+    researcherSavedGrants
 }) => {
     // State
-    const [userDataState, updateUserDataState] = useImmer<GrantGraphUser>(userData)
-    const [updatingUser, setUpdatingUser] = useState(false)
-    const [cvUrl, setCvUrl] = useState(cvReadUrl)
     const [cvIndexState, setCvIndexState] = useState<null | 'indexing' | 'findingMatches' | 'ready'>(userData.cvIndexState??null)
     // Actions
     useEffect(() => {
@@ -56,35 +51,6 @@ export const UserTabs: FC<{
         }
         checkIndexState()
     }, [cvIndexState])
-    const {
-        getInputProps,
-        getRootProps,
-        isFileDialogActive,
-        acceptedFiles,
-    } = useDropzone({
-        onDrop: async (acceptedFiles) => {
-            const cvUploadUrlResult = (await getCVUploadUrlAction({
-                organizationId: userData.organizationId,
-                userId: userData.userId
-            }))
-            
-            await fetch(cvUploadUrlResult.data!.createUrl, {
-                method: 'PUT',
-                body: acceptedFiles[0]
-            })
-            setCvUrl(cvUploadUrlResult.data!.readUrl)
-            await updateCVIndexStateAction({
-                organizationId: userData.organizationId,
-                userId: userData.userId,
-                cvIndexState: 'indexing'
-            })
-            setCvIndexState('indexing')
-            await indexCVAction({
-                organizationId: userData.organizationId,
-                userId: userData.userId
-            })
-        }
-    })
     return (
         <Tabs.Root defaultValue="profile" style={{width: '100%'}}>
             <Tabs.List>
@@ -108,20 +74,43 @@ export const UserTabs: FC<{
                         />Finding Matches</Badge>
                         : <Badge color='yellow' radius='full'><FileTextIcon/>Upload a CV to Begin</Badge>}
                 </Flex>
-
             </Tabs.List>
             <Box py='4' px='2'>
                 <Tabs.Content value="profile">
                     <ProfileTab
-                        userData={userDataState}
-                        cvReadUrl={cvUrl}
+                        userData={userData}
+                        cvReadUrl={cvReadUrl}
                         setCvIndexState={setCvIndexState}
                     />
                 </Tabs.Content>
                 <Tabs.Content value="feed">
-                    <Feed/>
+                    <Flex direction={'column'} gap='2'>
+                        <Flex gap='2' align='center'>
+                            <Heading size='4'>{userData.userName}'s Grant Feed</Heading>
+                            <InfoTooltip
+                                content={`Researchers receive automatic matches with the latest grants.gov releases in this feed.`}
+                            />
+                        </Flex>
+                        <GrantFeed
+                            grants={matches}
+                            userSavedGrantIds={userSavedGrantIds}
+                        />
+                    </Flex>
                 </Tabs.Content>
-                <Tabs.Content value="saved-grants">Bookmarks</Tabs.Content> 
+                <Tabs.Content value="saved-grants">
+                    <Flex direction={'column'} gap='2'>
+                        <Flex gap='2' align='center'>
+                            <Heading size='4'>{userData.userName}'s Saved Grants</Heading>
+                            <InfoTooltip
+                                content={`Bookmarking grants here is exclusive to your profile and won't affect ${userData.userName}'s bookmarks.`}
+                            />
+                        </Flex>
+                        <GrantFeed
+                            grants={researcherSavedGrants}
+                            userSavedGrantIds={userSavedGrantIds}
+                        />
+                    </Flex>
+                </Tabs.Content> 
             </Box>
         </Tabs.Root>
     )

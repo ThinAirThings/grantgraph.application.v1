@@ -27,9 +27,9 @@ export default async function ({
                 {role === 'user' && <SidebarItem location='top' href='/dashboard/home' >
                     <HomeIcon/><Text weight='medium'>Home</Text>
                 </SidebarItem>}
-                <SidebarItem location='top' href='/dashboard/find-grants' >
+                {/* <SidebarItem location='top' href='/dashboard/find-grants' >
                     <MagnifyingGlassIcon/><Text weight='medium'>Find Grants</Text>
-                </SidebarItem>
+                </SidebarItem> */}
                 {role === 'user' && <SidebarItem location='top' href='/dashboard/knowledge-base' >
                     <FileTextIcon/><Text weight='medium'>Knowledge Base</Text>
                 </SidebarItem>}

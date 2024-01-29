@@ -17,7 +17,7 @@ export default async function ({
     }
 }) {
     const grantData = await getCachedOpenGrant(params.grantId)
-    const {savedGrantIds} = await getCachedSavedGrantIds({
+    const savedGrantIds = await getCachedSavedGrantIds({
         ...(await auth())!.user!
     })
     return (
