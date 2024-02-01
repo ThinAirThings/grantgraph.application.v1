@@ -10,6 +10,7 @@ namespace NodeJS {
         SBIR_SOLICITATIONS_TABLE: string
         ZILLIZ_ENDPOINT: string
         ZILLIZ_API_KEY: string
+        ZILLIZ_GRANTS_COLLECTION: string
         OPENAI_API_KEY: string
     }
 }
