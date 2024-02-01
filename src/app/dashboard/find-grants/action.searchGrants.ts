@@ -4,7 +4,6 @@ import { dynamodb } from "@/src/libs/aws/dynamodb.client"
 import { openai } from "@/src/libs/openai/client.openai"
 import { createFunction } from "@/src/libs/openai/createFunction"
 import { safeAction } from "@/src/libs/safe-action/utlities"
-import { zilliz } from "@/src/libs/zilliz/client.zilliz"
 import { GrantMatch } from "@/src/types/GrantMatch"
 import {z} from 'zod'
 
@@ -51,20 +50,38 @@ export const searchGrantsAction = safeAction(z.object({
         ).optimizedQuery),
         encoding_format: 'float'
     })).data[0].embedding
-
-    const {results} = await zilliz.search({
-        collection_name: process.env.ZILLIZ_GRANTS_COLLECTION!,
-        expr: `embeddingKey=='title'`,
-        vector: queryEmbedding,
-        limit: 100,
-        output_fields: ['grantId']
-    })
+    const results = await (await fetch(`${process.env.ZILLIZ_ENDPOINT}/v1/vector/search`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.ZILLIZ_API_KEY}`,
+            "Accept": "application/json",
+        },
+        body: JSON.stringify({
+            collectionName: process.env.ZILLIZ_GRANTS_COLLECTION,
+            filter: `embeddingKey=='title'`,
+            vector: queryEmbedding,
+            limit: 100,
+            outputFields: ['grantId', 'embeddingKey']
+        })
+    })).json() as {
+        data: {
+            grantId: string
+        }[]
+    }
+    // const {results} = await zilliz.search({
+    //     collection_name: process.env.ZILLIZ_GRANTS_COLLECTION!,
+    //     expr: `embeddingKey=='title'`,
+    //     vector: queryEmbedding,
+    //     limit: 100,
+    //     output_fields: ['grantId']
+    // })
     const {
         Responses
     } = await dynamodb.batchGet({
         RequestItems: {
             [process.env.GRANTS_TABLE]: {
-                Keys: results.map(result => ({ grantId: result.grantId })),
+                Keys: results.data.map(result => ({ grantId: result.grantId })),
                 ProjectionExpression: `
                     grantId, 
                     title.#text, 

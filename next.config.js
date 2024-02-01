@@ -15,13 +15,14 @@ const nextConfig = {
                             'node_modules/@zilliz/milvus2-sdk-node/dist'
                         ),
                         to: path.join(__dirname, '.next'),
-                    },{
-                        from: path.join(
-                            __dirname,
-                            'node_modules/@zilliz/milvus2-sdk-node/dist'
-                        ),
-                        to: path.join(__dirname, 'static/milvus2-sdk-node'),
-                    }
+                    },
+                    // {
+                    //     from: path.join(
+                    //         __dirname,
+                    //         'node_modules/@zilliz/milvus2-sdk-node/dist'
+                    //     ),
+                    //     to: path.join(__dirname, 'static/milvus2-sdk-node'),
+                    // }
                 ],
                 })
             );
