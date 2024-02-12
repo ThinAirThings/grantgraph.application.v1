@@ -12,10 +12,23 @@ export default defineConfig({
     exclude: [],
 
     // Radix Preset
-    presets: ['@pandacss/preset-panda', radixColorsPreset()],
+    presets: [ "@pandacss/preset-base", '@pandacss/preset-panda', radixColorsPreset()],
     // Useful for theme customization
     theme: {
-        extend: {},
+        extend: {
+            breakpoints: {
+                sm: '520px',
+                md: '768px',
+                lg: '1024px',
+                xl: '1280px',
+                '2xl': '1640px',
+            }
+        },
+        // tokens: {
+        //     spacing: {
+        //         '9': '64px'
+        //     }
+        // }
     },
 
     // The output directory for your css system

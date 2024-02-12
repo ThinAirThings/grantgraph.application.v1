@@ -2,8 +2,8 @@
 import { UploadIcon } from "@radix-ui/react-icons";
 import { FC } from "react";
 import { useDropzone } from "react-dropzone";
-import { createDocumentAction } from "../../../api/documents/action.createDocument";
 import { LoadingButton } from "@/src/interface/LoadingButton/LoadingButton";
+import { createDocumentAction } from "@/src/api/documents/action.createDocument";
 
 
 export const CreateDocumentButton: FC = () => {

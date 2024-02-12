@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation"
 import { ReactNode } from "react"
 import { Grid, VStack } from "@/styled-system/jsx"
-import { SidebarRoot } from "../../interface/Sidebar/Sidebar.Root"
-import { SidebarItem } from "../../interface/Sidebar/Sidebar.Item"
 import { BookmarkIcon, FileTextIcon, GearIcon, HomeIcon, MagnifyingGlassIcon, PersonIcon } from "@radix-ui/react-icons"
 import { Text } from "@radix-ui/themes"
 import { auth } from "@/src/libs/auth/auth"
+import { SidebarRoot } from "@/src/interface/Sidebar/Sidebar.Root"
+import { SidebarItem } from "@/src/interface/Sidebar/Sidebar.Item"
 
 export default async function ({
     children

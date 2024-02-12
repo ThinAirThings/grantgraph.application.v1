@@ -1,10 +1,10 @@
 import { CreateUserDialog } from "@/src/api/users/client.CreateUserDialog";
-import { getCachedOrganization } from "@/src/app/superadmin/dashboard/organizations/[organizationId]/page";
 import { auth } from "@/src/libs/auth/auth";
 import { HStack, VStack, styled } from "@/styled-system/jsx";
 import { Box, Heading, ScrollArea, Table, Text } from "@radix-ui/themes";
 import { redirect } from "next/navigation";
 import { UserRow } from "./client.UserRow";
+import { getCachedOrganization } from "../../superadmin/dashboard/organizations/[organizationId]/page";
 
 
 export default async function () {

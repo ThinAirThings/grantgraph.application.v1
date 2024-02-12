@@ -4,7 +4,7 @@ import { dynamodb } from '@/src/libs/aws/dynamodb.client';
 import { s3 } from '@/src/libs/aws/s3.client';
 import { unstable_cache as cache } from 'next/cache';
 import { GetObjectCommand } from '@aws-sdk/client-s3';
-import { DocumentEntry } from "../app/dashboard/knowledge-base/page";
+import { DocumentEntry } from "../app/(dashboard)/dashboard/knowledge-base/page";
 
 export const getCachedDocument = cache(async(documentId: string) => {
     const {

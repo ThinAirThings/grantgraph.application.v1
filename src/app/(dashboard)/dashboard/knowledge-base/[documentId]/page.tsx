@@ -4,9 +4,9 @@ import { Grid, HStack, VStack } from '@/styled-system/jsx';
 import Link from 'next/link';
 import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import { Box, Heading } from '@radix-ui/themes';
-import { PDFViewer } from '../../../../interface/PDFViewer/PDFViewer';
 import { DeleteDocumentDialog } from '@/src/api/documents/client.DeleteDocumentDialog';
 import { getCachedDocument } from '@/src/cache/getCachedDocument';
+import { PDFViewer } from '@/src/interface/PDFViewer/PDFViewer';
 
 
 export default async function ({

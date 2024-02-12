@@ -1,11 +1,11 @@
 import { Heading, Text, Table } from "@radix-ui/themes";
-import { CreateOrganizationDialog } from "../../../../api/organizations/client.CreateOrganizationDialog";
 import { HStack, VStack, styled } from "@/styled-system/jsx";
 import { unstable_cache as cache } from 'next/cache';
 import { OrganizationRow } from "./[organizationId]/client.OrganizationRow";
 import { dynamodb } from "@/src/libs/aws/dynamodb.client";
 import { GrantGraphOrganization } from "@/src/types/GrantGraphOrganization";
 import { GrantGraphUser } from "@/src/types/GrantGraphUser";
+import { CreateOrganizationDialog } from "@/src/api/organizations/client.CreateOrganizationDialog";
 
 // const StyledScrollArea = styled(ScrollArea)
 const getCachedOrganizations = cache(async () => ((await dynamodb.scan({

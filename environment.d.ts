@@ -12,5 +12,6 @@ namespace NodeJS {
         ZILLIZ_API_KEY: string
         ZILLIZ_GRANTS_COLLECTION: string
         OPENAI_API_KEY: string
+        CONTACTFORM_TABLE
     }
 }
