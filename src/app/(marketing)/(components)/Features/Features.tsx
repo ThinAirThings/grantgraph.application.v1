@@ -12,7 +12,7 @@ export const Features = () => {
     return (
         <VStack
             px={{
-                base: '32px',
+                base: '16px',
                 sm: '256px',
             }}
             py={{
@@ -20,7 +20,7 @@ export const Features = () => {
                 sm: '32px',
             }}
         >
-            <FeatureTabs/>
+            {/* <FeatureTabs/> */}
             <Grid 
                 mt='20px'
                 columns={{

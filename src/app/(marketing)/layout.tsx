@@ -22,10 +22,10 @@ export default function MarketingLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={`${inter.className} antialiased `}>
-                <Theme appearance='light' panelBackground='solid' accentColor="green" radius="small" className="relative">
-                    <VStack justify={'top'} alignItems='center' height='full' width='screen'>
+                <Theme appearance='dark' panelBackground='solid' accentColor="green" radius="small" className="relative">
+                    <VStack justify={'top'} alignItems='center' height='full' width='screen' gap='0px'>
                         <Header/>
-                        <Box w='full' h='68px'></Box>
+                        {/* <Box w='full' h='68px'></Box> */}
                         {children}
                         <Footer/>
                     </VStack>

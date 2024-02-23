@@ -29,8 +29,10 @@ export const DeleteDocumentDialog: FC<{
     })
     return (
         <Dialog.Root open={open} onOpenChange={setOpen}>
-            <Dialog.Trigger>
-                <Box><Button color='red' variant='outline'><TrashIcon/>Delete Document</Button></Box>
+            <Dialog.Trigger> 
+                <Box>
+                    <Button color='red' variant='outline'><TrashIcon/>Delete Document</Button>
+                </Box>
             </Dialog.Trigger>
             <Dialog.Content>
                 <Dialog.Title>Delete Document</Dialog.Title>

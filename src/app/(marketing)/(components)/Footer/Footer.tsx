@@ -7,9 +7,10 @@ import Link from "next/link"
 
 export const Footer = () => {
     return (
-        <VStack w='full' py='40px' >
-            <Separator my="3" size="4" />
+        <VStack w='full' pb='40px' >
+            <Separator size="4" />
             <HStack 
+                pt='50px'
                 justify={'space-between'} 
                 px={{
                     base: '32px',
@@ -28,7 +29,7 @@ export const Footer = () => {
             <Separator my="3" size="4" />
             <Flex justify={'center'} width='100%' align='end' mt='3' gap='5'>
                 <Flex direction={'column'} gap="2" justify={'center'} align='center'>
-                    <Image src="/assets/logos.grantgraph/logo.long.svg" width={200} height={100} alt="full-logo"/>
+                    <Image src="/assets/logos.grantgraph/logo.long.dark.svg" width={200} height={100} alt="full-logo"/>
                     <Flex><DotFilledIcon style={{color:"var(--blue-10)"}}/><Text size='1' color='blue'>Systems in Beta</Text></Flex>
                     <Text align='right' size={'1'} color='gray'>Copyright @ 2024 GrantGraph. All rights reserved.</Text>
                 </Flex> 

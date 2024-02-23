@@ -7,7 +7,14 @@ import { ContactForm } from "./client.ContactForm";
 
 export default function () {
     return (
-        <VStack justify={'center'} gap='30px' pt='10px' w='full' p='24px'>
+        <VStack justify={'center'} gap='30px' pt='150px' w='full' p='24px'
+            px={{
+                base: '16px',
+                sm: '68px',
+                md: '122px',
+                lg: '400px'
+            }}
+        >
             <Flex direction={'column'} align='center' justify={'center'} gap='3' style={{width: '100%'}}>
                 <Heading size={{
                     initial: '5',
@@ -28,9 +35,10 @@ export default function () {
                         initial: '3',
                         md: '5'
                     }}
+
                     align='center'
                 >
-                    GrantGraph is swiftly onboarding new users. We look forward to collaborating with you to enhance our product according to your requirements.
+                    GrantGraph is welcoming new users aboard! We're rapidly iterating on the product and excited to build the features you need.
                 </Text>
             </Flex>
 

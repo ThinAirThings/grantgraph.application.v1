@@ -1,6 +1,5 @@
 'use client'
-import { css } from "@/styled-system/css"
-import { Box, HStack, VStack } from "@/styled-system/jsx"
+import { Box, HStack} from "@/styled-system/jsx"
 import { HamburgerMenuIcon, PersonIcon } from "@radix-ui/react-icons"
 import { Button, Flex, IconButton, Popover, Text } from "@radix-ui/themes"
 import Image from "next/image"
@@ -26,17 +25,17 @@ export const Header = () => {
         >
             <HStack alignItems={'end'}>
                 <Flex gap='6' align='end' >
-                    <Link href='/'><Image src={'assets/logos.grantgraph/logo.square.svg'} width={50} height={50} alt="grantgraph-logo"/></Link>
+                    <Link href='/'><Image src={'assets/logos.grantgraph/logo.square.dark.svg'} width={50} height={50} alt="grantgraph-logo"/></Link>
                 </Flex>
                 {/* Desktop Menu */}
                 <HStack hideBelow={'sm'} ml='8' gap='7' fontWeight='bold' mb={'1'}>
                     <Link href='/'>Home</Link>
-                    {/* <Link href='/login'>Pricing</Link> */}
+                    {/* <Link href='/try-now'>Try Now</Link> */}
                 </HStack>
             </HStack>
             <HStack hideBelow={'sm'}>
                 <Button variant='outline' onClick={() => router.push('/contact-us')} style={{cursor:'pointer'}}><PersonIcon/>Contact Sales</Button>
-                <Button onClick={() => router.push('/login')} style={{cursor:'pointer'}}>Sign In</Button>
+                <Button onClick={() => router.push('/try-now')} style={{cursor:'pointer'}}>Sign In</Button>
             </HStack>
             {/* Mobile Menu */}
             <Box hideFrom={'sm'}>
@@ -53,10 +52,10 @@ export const Header = () => {
                                 router.push('/')
                                 setMenuState(false)
                             }}>Home</Text>
-                            <Text onClick={() => {
-                                router.push('/login')
+                            {/* <Text onClick={() => {
+                                router.push('/try-now')
                                 setMenuState(false)
-                            }}>Try Now</Text>
+                            }}>Try Now</Text> */}
                             <Text onClick={() => {
                                 router.push('/contact-us')
                                 setMenuState(false)
