@@ -7,7 +7,7 @@ import { ContactForm } from "./client.ContactForm";
 
 export default function () {
     return (
-        <VStack justify={'center'} gap='30px' pt='150px' w='full' p='24px'
+        <VStack justify={'center'} gap='30px' pt='150px' w='full'
             px={{
                 base: '16px',
                 sm: '68px',
