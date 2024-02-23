@@ -35,7 +35,7 @@ export const Header = () => {
             </HStack>
             <HStack hideBelow={'sm'}>
                 <Button variant='outline' onClick={() => router.push('/contact-us')} style={{cursor:'pointer'}}><PersonIcon/>Contact Sales</Button>
-                <Button onClick={() => router.push('/try-now')} style={{cursor:'pointer'}}>Sign In</Button>
+                <Button onClick={() => router.push('/login')} style={{cursor:'pointer'}}>Sign In</Button>
             </HStack>
             {/* Mobile Menu */}
             <Box hideFrom={'sm'}>
