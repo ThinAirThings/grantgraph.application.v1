@@ -6,6 +6,7 @@ import { Box, VStack } from '@/styled-system/jsx';
 import { Header } from '@/src/app/(marketing)/(components)/Header/Header';
 import { Footer } from './(components)/Footer/Footer';
 import Script from 'next/script';
+import { FixedFeedback } from './(components)/FixedFeedback/FixedFeedback';
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -48,11 +49,12 @@ export default function MarketingLayout({
                     </noscript>
                 </>}
                 <Theme appearance='dark' panelBackground='solid' accentColor="green" radius="small" className="relative">
-                    <VStack justify={'top'} alignItems='center' height='full' width='screen' gap='0px'>
+                    <VStack justify={'top'} alignItems='center' height='full' width='screen' gap='0px' position='relative'>
                         <Header/>
                         {/* <Box w='full' h='68px'></Box> */}
                         {children}
                         <Footer/>
+                        <FixedFeedback/>
                     </VStack>
                 </Theme>
             </body>

@@ -21,4 +21,10 @@ export const submitContactForm = safeAction(z.object({
             message
         }
     })
+    // const data = await resend.emails.send({
+    //     from: 'GrantGraph <onboarding@e.grantgraph.com>',
+    //     to: ['dan.lannan@grantgraph.com'],
+    //     subject: 'New Contact Form Submission',
+    //     react: FeedbackEmail()
+    // })
 })
