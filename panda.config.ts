@@ -24,11 +24,6 @@ export default defineConfig({
                 '2xl': '1640px',
             }
         },
-        // tokens: {
-        //     spacing: {
-        //         '9': '64px'
-        //     }
-        // }
     },
 
     // The output directory for your css system
