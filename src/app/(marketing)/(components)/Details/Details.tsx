@@ -159,7 +159,7 @@ export const Details = () => {
                 >
                     <Heading size='3' color='green' highContrast>step 3</Heading>
                     <Heading size='3' color='gray'>START THE CONVERSATION</Heading>
-                    <Heading size='7'>Professors can choose to be immediately added to a group chat to discuss working together on a grant proposal.</Heading>
+                    <Heading size='7'>Researchers can choose to immediately enter a group chat and discuss working together on a grant proposal.</Heading>
                 </VStack>
                 <VStack
                     borderRadius={'2xl'}

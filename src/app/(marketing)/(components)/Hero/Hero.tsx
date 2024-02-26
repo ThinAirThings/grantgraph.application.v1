@@ -53,8 +53,7 @@ export const Hero = () => {
                     }}
                     
                     align='center'
-                    // style={{color: 'white'}}
-                >We Match Professors Together to Form Research Teams that Win Grants</Heading>
+                >We Help Form Research Teams That Win Grants</Heading>
                 <Heading as='h1' color='gray' size={{
                     initial: '4',
                     xs: '6',

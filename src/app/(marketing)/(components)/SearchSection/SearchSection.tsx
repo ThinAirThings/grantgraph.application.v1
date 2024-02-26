@@ -34,14 +34,14 @@ export const SearchSection = () => {
                 align={{
                     initial: 'left',
                     sm: 'center'
-                }}>Don't wait to leverage AI</Heading>
+                }}>Don't wait on AI</Heading>
                 <Heading size={{
                     initial: '7',
                     sm: '8'
                 }} align={{
                     initial: 'left',
                     sm: 'center'
-                }}>Begin your journey towards next generation operational efficiency today.</Heading>
+                }}>Increase your universities operating leverage today.</Heading>
                 <HStack>
                     <Link href='/contact-us'><Button variant="outline"><RocketIcon/>Schedule a Demo!</Button></Link>
                 </HStack>
