@@ -8,12 +8,12 @@ export const Hero = () => {
     return (
         <VStack 
             pt={{
-                base: '135px',
-                sm: '190px',
+                base: '150px',
+                sm: '230px',
             }}
             pb={{
                 base: '60px',
-                sm: '120px',
+                sm: '180px',
             }}
             gap={{
                 base: '20px',
@@ -53,20 +53,20 @@ export const Hero = () => {
                     }}
                     
                     align='center'
-                >We Help Form Research Teams That Win Grants</Heading>
+                >Grant Funding.<br/>Simplified with AI.</Heading>
                 <Heading as='h1' color='gray' size={{
                     initial: '4',
                     xs: '6',
                 }}
                     align='center'
-                >GrantGraph is an AI-powered platform which helps form interdisciplinary teams within research institutes. We match these teams to a collection of open funding opportunities to increase the rate of successful proposals.</Heading>
+                >GrantGraph is an AI-powered network of researchers, publications, and open funding opportunities. Our search and recommendation features streamline the creation of successful grant proposals by connecting the dots for you.</Heading>
             </VStack>
             <HStack gap='12px'
                 position={'relative'}
                 zIndex={2}
             >
                 {/* <Link href='/try-now'><Button><RocketIcon/>Start Now</Button></Link> */}
-                <Link href='/contact-us'><Button variant='outline'><PersonIcon/>Contact Sales</Button></Link>
+                <Link href='/contact-us'><Button variant='outline'><PersonIcon/>Get in Touch</Button></Link>
             </HStack>
         </VStack>
     )

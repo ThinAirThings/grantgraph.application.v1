@@ -42,7 +42,7 @@ export const FeedbackEmail = ({
           <Text style={paragraph}>Referrer: {referrer}</Text>
           <Text style={paragraph}>Date: {new Date().toDateString()}</Text>
           <Text style={paragraph}>Timestamp: {new Date().toTimeString()}</Text>
-          <Hr style={hr} />
+          <Hr style={hr}/>
           <Text style={footer}>
             GrantGraph, 49 Harvey Rd, Londonderry, NH 03053
           </Text>
@@ -55,10 +55,10 @@ export const FeedbackEmail = ({
 export default FeedbackEmail;
 
 const main = {
-  backgroundColor: "#f6f9fc",
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
-  padding: '30px'
+    backgroundColor: "#f6f9fc",
+    fontFamily:
+        '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
+    padding: '30px'
 };
 
 const container = {

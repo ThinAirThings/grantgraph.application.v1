@@ -26,10 +26,7 @@ export const createFeedback = safeAction(z.object({
             'jonathan.koppelman@grantgraph.com'
         ],
         subject: 'Website Feedback Submitted',
-        react: FeedbackEmail({
-            feedback,
-            referrer
-        })
+        react: FeedbackEmail({feedback, referrer})
     })
 })
 

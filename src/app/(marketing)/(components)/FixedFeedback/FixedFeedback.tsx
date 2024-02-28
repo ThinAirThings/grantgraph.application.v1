@@ -29,7 +29,7 @@ export const FixedFeedback = () => {
             })}>
                 {!submitted 
                     ? <VStack  alignItems={'start'}>
-                        <Heading size='3'>What do you think of the site?</Heading>
+                        <Heading size='3'>Questions, comments, ideas? We appreciate any and all feedback!</Heading>
                         <form 
                             className={css({w: 'full'})}
                             onSubmit={async (e) => {

@@ -5,6 +5,7 @@ import { IconProps } from "@radix-ui/react-icons/dist/types"
 import { Heading, Text } from "@radix-ui/themes"
 import { FC, ReactNode } from "react"
 import { FeatureTabs } from "./client.FeatureTabs"
+import { BoltIcon, ChatBubbleLeftRightIcon, DocumentMagnifyingGlassIcon, RocketLaunchIcon, UsersIcon } from "@heroicons/react/20/solid"
 
 
 
@@ -13,11 +14,12 @@ export const Features = () => {
         <VStack
             px={{
                 base: '16px',
-                sm: '256px',
+                md: '64px',
+                lg: '256px',
             }}
             py={{
-                base: '16px',
-                sm: '32px',
+                base: '73px',
+                sm: '128px',
             }}
         >
             {/* <FeatureTabs/> */}
@@ -34,28 +36,28 @@ export const Features = () => {
                 }}
             >
                 <FeatureBlock
-                    title='Automatically Crawls your Faculty Pages'
-                    Icon={ArchiveIcon}
+                    title='Seamlessly Network with Auto-generated Faculty Profiles'
+                    Icon={BoltIcon}
                 >
-                    <Text>GrantGraph automatically scans your faculty pages, indexing information about the researchers at your institute. It intelligently organizes your entire research staff into a categorized dashboard.</Text>
+                    <Text>{`We automate the onboarding process to organize your entire research staff into a categorized dashboard. GrantGraph’s AI indexes the information you need without the work.`}</Text>
                 </FeatureBlock>
                 <FeatureBlock
                     title={`The Smartest Grant Search You've Ever Seen`}
-                    Icon={MagnifyingGlassIcon}
+                    Icon={RocketLaunchIcon}
                 >
-                    <Text>{`Intelligent search filtering grants by eligibility, difficulty, and tuned for a specific researcher. It's amazing what you can do with a little AI.`}</Text>
+                    <Text>{`Search the same way you think. After chatting with our search engine you'll understand why AI is such a big deal.`}</Text>
                 </FeatureBlock>
                 <FeatureBlock
-                    title='Automated Grant Matching'
-                    Icon={MagicWandIcon}
+                    title='Intelligent Team Recommendations'
+                    Icon={UsersIcon}
                 >
-                    <Text>{`Like Amazon product recommendations for your team of researchers. GrantGraph matches based on past funding, publications, and current ambitions and opportunities.`}</Text>
+                    <Text>{`The GrantGraph networking engine shows individuals exactly why they should work together. GrantGraph identifies patterns in data based on past funding, publications, and current ambitions.`}</Text>
                 </FeatureBlock>
                 <FeatureBlock
-                    title='Matching Researchers to Researchers'
-                    Icon={PersonIcon}
+                    title='Talk to your Documents'
+                    Icon={DocumentMagnifyingGlassIcon}
                 >
-                    <Text>{`Go and get those massive opportunities with researcher to researcher matching to form interdisciplinary teams.`}</Text>
+                    <Text>{`Tired of reading 50 pages NOFOs? With GrantGraph you can talk to the document itself. Ask it questions about eligibility, timelines, and other requirements with exact citations indicating where the information was pulled from.`}</Text>
                 </FeatureBlock>
             </Grid>
         </VStack>
@@ -65,7 +67,7 @@ export const Features = () => {
 
 const FeatureBlock: FC<{
     title: string,
-    Icon: FC<IconProps>,
+    Icon: FC<IconProps> | typeof DocumentMagnifyingGlassIcon,
     children: ReactNode,
 }> = ({
     title,

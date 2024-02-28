@@ -30,18 +30,27 @@ export const SearchSection = () => {
                     sm: 'center'
                 }}
             >
-                <Heading size='6' color='green' 
-                align={{
-                    initial: 'left',
-                    sm: 'center'
-                }}>Don't wait on AI</Heading>
-                <Heading size={{
-                    initial: '7',
-                    sm: '8'
-                }} align={{
-                    initial: 'left',
-                    sm: 'center'
-                }}>Increase your universities operating leverage today.</Heading>
+                <VStack gap='0' 
+                    alignItems={{
+                        base: 'start',
+                        sm: 'center'
+                    }}
+                >
+                    <Heading size='6' color='green' 
+                        align={{
+                            initial: 'left',
+                            sm: 'center'
+                        }}
+                    >See What AI Can Do For You</Heading>
+                    <Heading size={{
+                        initial: '7',
+                        sm: '8'
+                    }} align={{
+                        initial: 'left',
+                        sm: 'center'
+                    }}>Increase Your Operating Leverage Today</Heading>
+                </VStack>
+
                 <HStack>
                     <Link href='/contact-us'><Button variant="outline"><RocketIcon/>Schedule a Demo!</Button></Link>
                 </HStack>
