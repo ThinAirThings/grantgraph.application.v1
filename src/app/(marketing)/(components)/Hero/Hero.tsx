@@ -59,7 +59,7 @@ export const Hero = () => {
                     xs: '6',
                 }}
                     align='center'
-                >GrantGraph is an AI-powered network of researchers, publications, and open funding opportunities. Our search and recommendation features streamline the creation of successful grant proposals by connecting the dots for you.</Heading>
+                >GrantGraph is an AI-powered network of researchers, publications, and open funding opportunities. We offer intelligent search and recommendations for research teams seeking grant funding.</Heading>
             </VStack>
             <HStack gap='12px'
                 position={'relative'}

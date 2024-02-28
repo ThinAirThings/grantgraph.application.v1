@@ -31,7 +31,7 @@ export const Features = () => {
                 }} 
 
                 gap={{
-                    base: '16px',
+                    base: '60px',
                     sm: '40px',
                 }}
             >
@@ -79,7 +79,7 @@ const FeatureBlock: FC<{
             <HStack bg='token(colors.green.9)' p='7px' borderRadius={'8px'}>
                 <Icon width={22} height={22} color='white'/>
             </HStack>
-            <VStack alignItems='start'>
+            <VStack alignItems='start' gap='5px'>
                 <Heading as='h3'>{title}</Heading>
                 {children}
             </VStack>
