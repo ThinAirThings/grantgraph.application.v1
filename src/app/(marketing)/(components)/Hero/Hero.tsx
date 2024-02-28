@@ -54,7 +54,6 @@ export const Hero = () => {
                     
                     align='center'
                 >Grant Funding.<br/>Simplified with AI.</Heading>
-
                 <Heading as='h1' color='gray' size={{
                     initial: '4',
                     xs: '6',
